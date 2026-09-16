@@ -3,6 +3,8 @@
 React + Express + MySQL (via Prisma) + Socket.io + JWT, with an
 AI-generated daily summary powered by a single REST call to Groq/OpenAI.
 
+**Live demo:** https://queue-system-self.vercel.app/
+
 ```
 queue-management-system/
 ├── backend/     Express API + Prisma + Socket.io   (see backend/README.md)
