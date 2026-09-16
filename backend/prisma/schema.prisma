@@ -1,0 +1,71 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Service {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  tokens    Token[]
+
+  @@map("services")
+}
+
+enum TokenStatus {
+  waiting
+  serving
+  completed
+  skipped
+}
+
+model Token {
+  id           Int         @id @default(autoincrement())
+  customerName String      @map("customer_name") @db.VarChar(100)
+  serviceId    Int         @map("service_id")
+  service      Service     @relation(fields: [serviceId], references: [id])
+  tokenNumber  Int         @map("token_number")
+  status       TokenStatus @default(waiting)
+  queueDate    DateTime    @map("queue_date") @db.Date
+  createdAt    DateTime    @default(now()) @map("created_at")
+  calledAt     DateTime?   @map("called_at")
+  completedAt  DateTime?   @map("completed_at")
+
+  @@unique([tokenNumber, queueDate], name: "uniq_token_per_day")
+  @@map("tokens")
+}
+
+// Backs the concurrency-safe token number generator (see tokenController.js).
+// One row per calendar day; `counter` is incremented atomically.
+model DailyCounter {
+  queueDate DateTime @id @map("queue_date") @db.Date
+  counter   Int      @default(0)
+
+  @@map("daily_counters")
+}
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique @db.VarChar(50)
+  passwordHash String   @map("password_hash") @db.VarChar(255)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("admins")
+}
+
+// Caches the AI-generated summary per day so we don't call the AI API
+// again every time the admin reloads the dashboard.
+model DailySummary {
+  queueDate DateTime @id @map("queue_date") @db.Date
+  content   String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("daily_summaries")
+}
