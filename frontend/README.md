@@ -26,10 +26,10 @@ React (Vite) — customer join/status pages + admin dashboard.
 
 ## Deployment (Vercel)
 
-1. Push `frontend/` to GitHub (or a subfolder of your repo).
-2. Import the project in Vercel, set root directory to `frontend`.
-3. Build command: `npm run build`, output directory: `dist` (Vercel
-   detects this automatically for Vite).
-4. Set environment variables in the Vercel dashboard:
-   - `VITE_API_URL` — your deployed backend URL + `/api`
-   - `VITE_SOCKET_URL` — your deployed backend URL (no path)
+1. Push `frontend/` to GitHub. Import the project in Vercel, root
+   directory `frontend`.
+2. Framework: Vite. Build command `npm run build`, output `dist`
+   (auto-detected).
+3. Environment variables:
+   - `VITE_API_URL` — deployed backend URL + `/api`
+   - `VITE_SOCKET_URL` — deployed backend URL (no path)

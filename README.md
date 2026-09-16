@@ -69,11 +69,11 @@ and `AI_MODEL` to a model you have access to (e.g. `gpt-4o-mini`).
   integration — one `fetch()` call to a chat-completions endpoint with
   the day's computed stats as the prompt. No ML libraries involved.
 
-## Deployment (Step 7)
+## Deployment
 
-See the "Deployment" sections in `backend/README.md` and
-`frontend/README.md` — backend on Render/Railway, frontend on Vercel,
-MySQL on Railway or Aiven's free tier.
+Live stack: **backend on Render**, **database on Aiven MySQL**, **frontend
+on Vercel**. See `backend/README.md` and `frontend/README.md` for exact
+steps and required environment variables.
 
 ## What I verified before handing this to you
 

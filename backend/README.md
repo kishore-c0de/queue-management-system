@@ -99,15 +99,16 @@ SQL statement is atomic in MySQL, so simultaneous requests can't read the
 same "before" value the way a naive `COUNT(*) + 1` would. The `UNIQUE KEY`
 on `(token_number, queue_date)` in the schema is a second safety net.
 
-## Deployment (Render or Railway)
+## Deployment (Render + Aiven MySQL)
 
-1. Push this `backend/` folder to a GitHub repo (or a subfolder of one).
-2. Create a new Web Service, root directory `backend`.
-3. Build command: `npm install && npx prisma generate`
-4. Start command: `npx prisma migrate deploy && npm start`
-5. Set the same environment variables as your `.env` (`DATABASE_URL`,
-   `JWT_SECRET`, `AI_API_KEY`, `AI_API_URL`, `AI_MODEL`) in the platform's
-   dashboard — point `DATABASE_URL` at your hosted MySQL instance
-   (Railway or Aiven both offer free-tier MySQL).
-6. Note the deployed URL — the frontend's `VITE_API_URL` and
-   `VITE_SOCKET_URL` need to point at it.
+1. Push `backend/` to GitHub. Create a Render Web Service with root
+   directory `backend`.
+2. Build command: `npm install && npx prisma generate`
+3. Start command: `npx prisma migrate deploy && npm start`
+4. Set environment variables: `DATABASE_URL`, `JWT_SECRET`, `AI_API_KEY`,
+   `AI_API_URL`, `AI_MODEL`.
+5. Aiven MySQL requires SSL. Upload the Aiven CA cert as a Render
+   **Secret File** at `/etc/secrets/aiven-ca.pem`, and set `DATABASE_URL`
+   with `?sslaccept=strict&sslcert=/etc/secrets/aiven-ca.pem` appended.
+6. Note the deployed URL — the frontend's `VITE_API_URL`/`VITE_SOCKET_URL`
+   need to point at it.
