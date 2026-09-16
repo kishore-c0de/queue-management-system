@@ -6,6 +6,9 @@
 // need DB access.
 
 const { PrismaClient } = require('@prisma/client');
+const { applySslCertPath } = require('./databaseUrl');
+
+applySslCertPath();
 
 const prisma = new PrismaClient();
 

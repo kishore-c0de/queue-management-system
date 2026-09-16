@@ -4,6 +4,9 @@
 
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
+const { applySslCertPath } = require('../src/config/databaseUrl');
+
+applySslCertPath();
 
 const prisma = new PrismaClient();
 
