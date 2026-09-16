@@ -5,6 +5,12 @@ AI-generated daily summary powered by a single REST call to Groq/OpenAI.
 
 **Live demo:** https://queue-system-self.vercel.app/
 
+## Screenshots
+
+| Join Queue | Token | Admin Dashboard | Dropdown Menu |
+|---|---|---|---|
+| ![Join Queue](Screenshot/JoinQueue.png) | ![Token](Screenshot/Token.png) | ![Admin Dashboard](Screenshot/Admin%20Dashboard.png) | ![Dropdown Menu](Screenshot/DropDownMenu.png) |
+
 ```
 queue-management-system/
 ├── backend/     Express API + Prisma + Socket.io   (see backend/README.md)
